@@ -1,0 +1,139 @@
+/* styles.css */
+body, html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'CustomFont';
+    src: url('metalslugfont.otf') format('opentype');
+}
+
+#gameScreen {
+    width: 1200px;
+    height: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+canvas {
+    display: block;
+    background-color: rgba(250, 250, 250, 0.5);
+    border: 3px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 캔버스를 중앙으로 이동 */
+}
+#gamenav {
+    position: relative;
+    top: 10px;
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    margin-top: 20px;
+}
+#gamenav div{
+    margin-left: 170px;
+}
+#gamenav p{
+    margin-right: 60px;
+}
+
+.appear {
+    animation: fadein 0.1s;
+}
+.centered {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+}
+.screen {
+    width: 800px;
+    height: 600px;
+    margin: 0 auto;
+    margin-top: 100px;
+    position: relative;
+    background: #eee;
+    text-align: center;
+    background-color: transparent;
+}
+.menuButtons {
+    font-size: 35px;
+    width: 300px;
+    height: 40px;
+    position: relative;
+    background-color: transparent;
+    border: none;
+}
+.menuButtons:hover {
+    color: red;
+}
+#gameOverScreen {
+    background-color: white;
+    border: 3px solid black;
+    margin: 0 auto; width: 600px;
+    height: 450px;
+    animation: fadein 5s;
+ }
+#gameOverScreen h1 {
+    font-family: "CustomFont", sans-serif;
+    font-size: 60px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+.gameScore {
+    font-family: "CustomFont", sans-serif;
+    margin: 20px auto;
+    font-size: 50px;
+    width: 500px;
+    height: 40px;
+    position: relative;
+}
+.backToMenuButton2 {
+    font-family: "CustomFont", sans-serif;
+    display: none;
+    margin: 10px auto;
+}
+#life {
+    position: relative;
+    top: 640px;
+    left: 20px;
+    z-index: 1; /* 캔버스 위에 표시하기 위해 */
+    margin-top: -80px; /* 상단 여백 조정 */
+}
+
+#life img {
+    margin-right: 10px;
+}
+.blink {
+    visibility: hidden;
+}
+#coin{
+    font-family: "CustomFont", sans-serif;
+    font-size: 50px;
+    margin-top: 0px;
+}
+#timer{
+    font-family: "CustomFont", sans-serif;
+    font-size: 50px;
+    left: 20px;
+}
+#score{
+    font-family: "CustomFont", sans-serif;
+    font-size: 40px;
+}
+.gradient-text {
+    background: linear-gradient(to top, #fb6222, #f4fb14);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.gradient-text-two {
+    background: linear-gradient(to top, #cbc5fb, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

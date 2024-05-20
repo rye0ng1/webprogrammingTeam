@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MetalSlug</title>
+    <link rel="stylesheet" href="metalslug_example.css">
+    <script src="metalslug_example.js"></script>
+</head>
+<body>
+    <div id="gameScreen">
+        <div id="pauseMenu"></div>
+            <div id="gamenav">
+                <div id="score" class="gradient-text-two">0</div>
+                <div id="timer" class="gradient-text">60</div>
+                <p id="coin" class="gradient-text-two">INSERT COIN</p>
+            </div>
+            <canvas id="gameCanvas" width="1200" height="800"></canvas>
+    </div>
+    <div id="gameOverScreen" class="screen centered" style="display: none;"> 
+        <h1 class="gradient-text"></h1>
+        <div id="gameOverScore" class="gameScore"></div>
+        <div style="display: flex;">
+            <button id="backToMenuButtonFromGameOver" class="menuButtons backToMenuButton2" style="display:none;">Back to Menu</button>
+        </div>
+    </div>
+</body>
+</html>
