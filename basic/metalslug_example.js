@@ -37,8 +37,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    let rightPressed = false;
+    let leftPressed = false;
+
+    document.addEventListener('keydown', keyDownHandler);
+    document.addEventListener('keyup', keyUpHandler);
     document.addEventListener('mousemove', mouseMoveHandler);
-    
+
+    function keyDownHandler(e) {
+        if (e.key === 'Right' || e.key === 'ArrowRight') {
+            rightPressed = true;
+        } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+            leftPressed = true;
+        }
+    }
+
+    function keyUpHandler(e) {
+        if (e.key === 'Right' || e.key === 'ArrowRight') {
+            rightPressed = false;
+        } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+            leftPressed = false;
+        }
+    }
+
     function mouseMoveHandler(e) {
         const rect = canvas.getBoundingClientRect();
         lastMousePosition = {
@@ -136,15 +157,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Load all character images
+    // 캐릭터 이미지 생성
     const characterImages = [];
     for (let i = 0; i < 9; i++) {
         const img = new Image();
-        img.src = `player_motion/p${i}.png`; // Ensure these paths are correct
+        img.src = `player_motion/p${i}.png`;
         characterImages.push(img);
     }
 
-    // Function to get the appropriate character image based on the angle
+    // 캐릭터 이미지 각도에 따른 설정
     function getCharacterImage(angle) {
         console.log(angle);
         if (angle >= -0.0 && angle < 0.2) return characterImages[0];
@@ -161,6 +182,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function drawCharacter() {
+        if (rightPressed && playerX < canvas.width - playerWidth) {
+            playerX += 7;
+        } else if (leftPressed && playerX > 0) {
+            playerX -= 7;
+        }
+
         const angle = Math.atan2(lastMousePosition.y - (canvas.height - playerHeight / 2), lastMousePosition.x - (playerX + playerWidth / 2));
         const characterImage = getCharacterImage(angle);
         
@@ -251,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(update);
     }
 
-    // Ensure all images are loaded before starting the game
+    // 이미지 다 불러오기
     Promise.all(characterImages.map(img => new Promise(resolve => img.onload = resolve))).then(() => {
         update();
     });
