@@ -133,55 +133,43 @@
 	</div>
 
 
-	<!-- <div id="gameboard" class="game_screen">
-		<div id="pauseScreenMenu" class="isHidden centered">
-			<div class="backButtonDiv centered">
-				<div style="display: flex;">
-					<img src="pixel_arrow_right.png" class="arrow hidden">
-					<button id="continueButton" class="continueButton menuButtons">Continue</button>
-					<img src="pixel_arrow_left.png" class="arrow hidden">
-				</div>
-				<div style="display: flex;">
-					<img src="pixel_arrow_right.png" class="arrow hidden">
-					<button id="backToMenuButton" class="menuButtons">Back to Menu</button>
-					<img src="pixel_arrow_left.png" class="arrow hidden">
-				</div>
+
+	<div id="pauseScreenMenu" class="isHidden centered">
+		<div class="backButtonDiv centered">
+			<div style="display: flex;">
+				<img src="pixel_arrow_right.png" class="arrow hidden">
+				<button id="continueButton" class="continueButton menuButtons">Continue</button>
+				<img src="pixel_arrow_left.png" class="arrow hidden">
+			</div>
+			<div style="display: flex;">
+				<img src="pixel_arrow_right.png" class="arrow hidden">
+				<button id="backToMenuButton" class="menuButtons">Back to Menu</button>
+				<img src="pixel_arrow_left.png" class="arrow hidden">
 			</div>
 		</div>
+	</div>
 
-		<div id="confirmationDiv" class="isHidden centered">
-			<h3>Do you really want to go back to Main Menu?</h2>
-			<h3>Your Progress will not be saved.</h2>
-			<div class="confirmationButtonDiv centered">
-				<div style="display: flex;">
-					<img src="pixel_arrow_right.png" class="arrow hidden">
-					<button class="yesButton menuButtons">Yes</button>
-					<img src="pixel_arrow_left.png" class="arrow hidden">
-				</div>
-				<div style="display: flex;">
-					<img src="pixel_arrow_right.png" class="arrow hidden">
-					<button class="noButton menuButtons">No</button>
-					<img src="pixel_arrow_left.png" class="arrow hidden">
-				</div>
+	<div id="gameScreen" style="display: none;">
+        <div id="pauseMenu"></div>
+            <div id="gamenav">
+                <div id="score" class="gradient-text-two">0</div>
+                <div id="timer" class="gradient-text">60</div>
+                <p id="coin" class="gradient-text-two">INSERT COIN</p>
+            </div>
+            <canvas id="gameCanvas" width="1200" height="800"></canvas>
+            <div id="life">
+				<img src="Heart.png" width="50px" id="heart1">
+				<img src="Heart.png" width="50px" id="heart2">
+				<img src="Heart.png" width="50px" id="heart3">
 			</div>
-		</div>
-
-		<canvas id="brickCanvas" width="800px" height="600px"></canvas>
-		<div id="life">
-			<img src="Heart.png" width="50px" id="heart1">
-			<img src="Heart.png" width="50px" id="heart2">
-			<img src="Heart.png" width="50px" id="heart3">
-		</div>
-
-		<div id="score">
-			<h2>SCORE : 0</h2>
-		</div>
-		<div id="skill" class="skillOff">
-			<p id="skillText">SKILL OFF</p>
-		</div>
-	</div> -->
-
-
+    </div>
+    <div id="gameOverScreen" class="sscreen centered" style="display: none;"> 
+        <h1 class="gradient-text"></h1>
+        <div id="gameOverScore" class="gameScore"></div>
+        <div style="display: flex;">
+            <button id="backToMenuButtonFromGameOver" class="menuButtons backToMenuButton2" style="display:none;">Back to Menu</button>
+        </div>
+    </div>
 
 	<div id="settingsScreen" class="screen centered" style="display: none">
 		<h1>Settings</h1>
@@ -286,7 +274,7 @@
 	</div>
 
 
-<!-- 	<div id="gameOverScreen" class="screen centered" style="display: none;"> 
+<!-- <div id="gameOverScreen" class="screen centered" style="display: none;"> 
 		<h1></h1>
 		<div id="gameOverScore" class="gameScore"></div>
 		<div style="display: flex;">

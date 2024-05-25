@@ -45,6 +45,16 @@ h3 {
 /*	background-image: url('Main.png');
     background-size: cover;*/
 }
+.sscreen {
+    width: 800px;
+    height: 600px;
+    margin: 0 auto;
+    margin-top: 100px;
+    position: relative;
+    background: #eee;
+    text-align: center;
+    background-color: transparent;
+}
 .centered {
 	display: flex; 
 	flex-direction: column; 
@@ -171,34 +181,35 @@ h3 {
 	padding: 5px;
 }
 
-
-#gameboard {
-	width: 800px;
-	margin: 0 auto;
-	position: relative;
-	display: none;
-}
-#brickCanvas {
-	background-color: rgba(250, 250, 250, 0.5);
-	border: 3px solid black;
-	margin: 0 auto;
-	margin-top: 100px;
-	width: 800px;
-	height: 600px;
-}
 #life {
-	margin-top: 50px;
-	float: left;
+    position: relative;
+    top: 750px;
+    left: 20px;
+    z-index: 1; /* 캔버스 위에 표시하기 위해 */
+    margin-top: -80px; /* 상단 여백 조정 */
 }
-#score {
-	margin-top: 50px;
-	float: right;
+#life img {
+    margin-right: 10px;
+}
+#score{
+    font-family: "Metal Slug Latino Regular", sans-serif;
+    font-size: 40px;
+}
+
+.gradient-text {
+    background: linear-gradient(to top, #fb6222, #f4fb14);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.gradient-text-two {
+    background: linear-gradient(to top, #cbc5fb, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .credits {
 	display: flex; 
 }
-
 
 
 .backButton {
@@ -432,7 +443,9 @@ color: red;
 }
  
 .backToMenuButton2 {
- 	display: none;
+    font-family: "Metal Slug Latino Regular", sans-serif;
+    display: none;
+    margin: 10px auto;
 }
 
 .appear {
@@ -451,9 +464,6 @@ to {
 	opacity: 0;
 }
 }
-
-
-
 
 #backBtn {
 width: 400px;
@@ -489,4 +499,90 @@ color: green;
 }
 #S4 {
 color: red;
+}
+#gameScreen {
+    width: 1200px;
+    height: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+canvas {
+    display: block;
+    background-color: rgba(250, 250, 250, 0.5);
+    border: 3px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 캔버스를 중앙으로 이동 */
+}
+#gamenav {
+    position: relative;
+    top: 10px;
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    margin-top: 20px;
+}
+#gamenav div{
+    margin-left: 170px; 
+}
+#gamenav p{
+    margin-right: 60px;
+}
+.sscreen {
+    width: 800px;
+    height: 600px;
+    margin: 0 auto;
+    margin-top: 100px;
+    position: relative;
+    background: #eee;
+    text-align: center;
+    background-color: transparent;
+}
+#gameOverScreen {
+    background-color: white;
+    border: 3px solid black;
+    margin: 0 auto; width: 600px;
+    height: 450px;
+    animation: fadein 5s;
+ }
+#gameOverScreen h1 {
+    font-family: "Metal Slug Latino Regular", sans-serif;
+    font-size: 60px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+.gameScore {
+    font-family: "Metal Slug Latino Regular", sans-serif;
+    margin: 20px auto;
+    font-size: 50px;
+    width: 500px;
+    height: 40px;
+    position: relative;
+}
+.blink {
+    visibility: hidden;
+}
+#coin{
+    font-family: "Metal Slug Latino Regular", sans-serif;
+    font-size: 50px;
+    margin-top: 0px;
+}
+#timer{
+    font-family: "Metal Slug Latino Regular", sans-serif;
+    font-size: 50px;
+    left: 20px;
+}
+.pauseMenu {
+	width: 350px;
+	height: 250px;
+	background-color: white;
+	border: 3px solid black;
+	position: absolute;
+	top: 0;
+  	bottom: 0;
+  	left: 0;
+  	right: 0;
+  	margin: auto;
 }
