@@ -6,7 +6,7 @@ window.gameSettings = {
     gameMode: "1",
     character: "player1_big.png",
     backgroundImg: "mainbackground.png",
-    music: "BGM1.wav",
+    music: "sound/BGM1.wav",
     soundOnOff: "off"
 };
 
@@ -232,7 +232,7 @@ function game(){
                         }
                         if (b.status == 0) {
                             brickcnt--;
-                            var audio = new Audio('enemydie2.wav');
+                            var audio = new Audio('sound/enemydie2.wav');
                             audio.play();
                             score += 1;
                             const sc = document.getElementById("score");
@@ -387,12 +387,32 @@ function start() {
     score = 0;
     if (window.gameSettings.gameRules ==="off" && window.gameSettings.gameStory ==="off") {
         hideShowScreen("preGameSettingsScreen",null);
-        game();
+        switch (window.gameSettings.gameMode) {
+            case "1":
+                game();
+                break;
+            case "2":
+                gameMedium();
+                break;
+            case "3":
+                //gameHard();
+                break;
+        }
     }
     else if (window.gameSettings.gameRules ==="on" && window.gameSettings.gameStory ==="off") {
         if (grandgrandParentDiv.id === "gameRulesScreen") {
             hideShowScreen("gameRulesScreen",null);
-            game();
+            switch (window.gameSettings.gameMode) {
+                case "1":
+                    game();
+                    break;
+                case "2":
+                    gameMedium();
+                    break;
+                case "3":
+                    //gameHard();
+                    break;
+            }
         } else {
             hideShowScreen("preGameSettingsScreen","gameRulesScreen");
         }
@@ -400,7 +420,17 @@ function start() {
     else if (window.gameSettings.gameRules ==="off" && window.gameSettings.gameStory ==="on") {
         if (grandgrandParentDiv.id === "gameStoryScreen") {
             hideShowScreen("gameStoryScreen",null);
-            game();
+            switch (window.gameSettings.gameMode) {
+                case "1":
+                    game();
+                    break;
+                case "2":
+                    gameMedium();
+                    break;
+                case "3":
+                    //gameHard();
+                    break;
+            }
         } else {
             hideShowScreen("preGameSettingsScreen","gameStoryScreen");
         }
@@ -410,7 +440,17 @@ function start() {
             hideShowScreen("gameRulesScreen","gameStoryScreen");
         } else if (grandgrandParentDiv.id === "gameStoryScreen") {
             hideShowScreen("gameStoryScreen",null);
-            game();
+            switch (window.gameSettings.gameMode) {
+                case "1":
+                    game();
+                    break;
+                case "2":
+                    gameMedium();
+                    break;
+                case "3":
+                    //gameHard();
+                    break;
+            }
         } else {
             hideShowScreen("preGameSettingsScreen","gameRulesScreen");
         }
@@ -513,7 +553,7 @@ function showSettings() {
     var myAudio = document.getElementById("myAudio");
     for (var i = 0; i < bgm.length; i++) {
         bgm[i].onclick = function(e) {
-            window.gameSettings.music = this.name+".wav";
+            window.gameSettings.music = "sound/"+this.name+".wav";
             myAudio.src = window.gameSettings.music;
             musicOnOff();
         };

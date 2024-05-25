@@ -2,6 +2,7 @@
 <head>
 	<title>메탈슬러그 벽돌깨기</title>
 	<script type="text/javascript" src = "metalslug.js"></script>
+	<script type="text/javascript" src = "metalslug_medium.js"></script>
 	<link type="text/css" rel = "stylesheet" href = "metalslug.css">
 	<link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
 </head>
@@ -30,10 +31,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
 
 	<div id="preGameSettingsScreen" class="screen centered" style="display: none">
 		<div class="transparentBackground centered">
@@ -149,20 +146,21 @@
 		</div>
 	</div>
 
-	<div id="gameScreen" style="display: none;">
+    <div id="gameScreen" style="display: none;">
         <div id="pauseMenu"></div>
+        <div id="canvasWrapper">
             <div id="gamenav">
                 <div id="score" class="gradient-text-two">0</div>
-                <div id="timer" class="gradient-text">60</div>
+                <div id="life"></div>
+                <div id="timer" class="gradient-text">120</div>
                 <p id="coin" class="gradient-text-two">INSERT COIN</p>
             </div>
             <canvas id="gameCanvas" width="1200" height="800"></canvas>
-            <div id="life">
-				<img src="Heart.png" width="50px" id="heart1">
-				<img src="Heart.png" width="50px" id="heart2">
-				<img src="Heart.png" width="50px" id="heart3">
-			</div>
+            <div id="enemyContainer"></div>
+            <div id="itemContainer"></div>
+        </div>
     </div>
+
     <div id="gameOverScreen" class="sscreen centered" style="display: none;"> 
         <h1 class="gradient-text"></h1>
         <div id="gameOverScore" class="gameScore"></div>
