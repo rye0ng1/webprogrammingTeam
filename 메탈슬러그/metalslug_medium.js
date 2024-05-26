@@ -677,6 +677,7 @@ function gameMedium(){
     function gameOver() {
         gameFinish = true;
         enemyContainer.innerHTML = '';
+        var gameover = document.getElementById("gameOverScreen");
         var h1 = gameover.getElementsByTagName('h1')[0];
         h1.innerHTML = '';
         var gameboard = document.getElementById("gameScreen");

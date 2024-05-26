@@ -315,6 +315,9 @@ function game(){
     function gameOver() { 
         var gameboard = document.getElementById("gameScreen");
         gameboard.style.display = "none";
+        var gameover = document.getElementById("gameOverScreen");
+        var h1 = gameover.getElementsByTagName('h1')[0];
+        h1.innerHTML = '';
         hideShowScreen(null,"gameOverScreen");
         showGameOver();
     }
