@@ -336,8 +336,6 @@ function gameMedium(){
                 playerRect.top < itemRect.bottom &&
                 playerRect.bottom > itemRect.top
             ) {
-                // 충돌 시 아이템 제거 및 스코어 증가
-                item.remove();
                 // 아이템 클래스 중 Fitem이 있는지 확인
                 if (item.classList.contains('Fitem')) {
                     // Fitem이 포함된 경우 새로운 함수 호출
@@ -348,6 +346,8 @@ function gameMedium(){
                     score += 10; // 예시로 10점을 추가
                     document.getElementById("score").textContent = score;
                 }
+                // 충돌 시 아이템 제거 및 스코어 증가
+                item.remove();
             }
         });
     }
@@ -676,6 +676,9 @@ function gameMedium(){
     //게임 종료 함수
     function gameOver() {
         gameFinish = true;
+        enemyContainer.innerHTML = '';
+        var h1 = gameover.getElementsByTagName('h1')[0];
+        h1.innerHTML = '';
         var gameboard = document.getElementById("gameScreen");
         gameboard.style.display = "none";
         hideShowScreen(null,"gameOverScreen");
