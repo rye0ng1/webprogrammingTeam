@@ -1,4 +1,35 @@
 function gameHard(){
+        //효과음 사운드
+    var effectaudio = new Audio('sound/enemydie4.wav');
+    document.addEventListener('DOMContentLoaded', function() {
+
+        effectaudio.volume = 0;
+        toggleButtons('off');
+
+        document.getElementById('effectOffButton').addEventListener('click', function() {
+            effectaudio.volume = 0;
+            toggleButtons('off');
+        });
+
+        document.getElementById('effectOnButton').addEventListener('click', function() {
+            effectaudio.volume = 0.1;
+            toggleButtons('on');
+        });
+
+        function toggleButtons(state) {
+            var offButton = document.getElementById('effectOffButton');
+            var onButton = document.getElementById('effectOnButton');
+
+            if (state === 'off') {
+                offButton.classList.add('active');
+                onButton.classList.remove('active');
+            } else {
+                offButton.classList.remove('active');
+                onButton.classList.add('active');
+            }
+        }
+    });
+
     var gamescreen = document.getElementById('gameScreen');
     gamescreen.style.display = "block";
     const canvas = document.getElementById('gameCanvas');
@@ -21,7 +52,7 @@ function gameHard(){
     let bulletSpeed = 10; // 원래는 5
     let bullets = [];
     let lastBulletTime = 0;
-    let bulletCooldown = 200; // 총알 나가는 시간 (ms)
+    let bulletCooldown = 20; // 총알 나가는 시간 (ms)
     let lastMousePosition = { x: canvas.width / 2, y: canvas.height / 2 };
 
     const brickRow = 3;
@@ -139,6 +170,7 @@ function gameHard(){
             lastBulletTime = now;
         }
     }
+
     function drawBricks() {
         for (let c = 0; c < brickColumn; c++) {
             for (let r = 0; r < brickRow; r++) {
@@ -577,8 +609,7 @@ function gameHard(){
                         }
                         if (b.status == 0) {
                             brickcnt--;
-                            var audio = new Audio('sound/enemydie4.wav');
-                            audio.play();
+                            effectaudio.play();
                             score += 1;
                             const sc = document.getElementById("score");
                             sc.innerHTML = score;
@@ -648,9 +679,6 @@ function gameHard(){
             });
         }, enemyBulletCooldown);
     }
-
-
-
 
     // 캐릭터 이미지 생성
     const characterImages = [];

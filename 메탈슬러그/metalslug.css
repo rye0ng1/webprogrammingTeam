@@ -555,8 +555,8 @@ canvas {
 #gameOverScreen {
     background-color: white;
     border: 3px solid black;
-    margin: 0 auto; width: 600px;
-    padding-top: ;
+    margin: 200px auto;
+    width: 600px;
     height: 450px;
     animation: fadein 5s;
  }
@@ -604,6 +604,18 @@ canvas {
 
 }
 
+.effectOnOffButton {
+	width: 100px;
+	background-color: transparent;
+	border: none;
+}
+.effectOnOffButton:hover {
+	color: red;
+}
+.effectOnOffButton.active {
+    color: red;
+}
+
 .pauseMenu {
 	width: 350px;
 	height: 250px;
@@ -634,4 +646,11 @@ canvas {
 .shake {
     animation: shake 0.5s;
     animation-iteration-count: 2;
+}
+
+.winbutton {
+    font-family: "Metal Slug Latino Regular", sans-serif;
+    color: black;
+    display: none;
+    margin: 0 auto;
 }

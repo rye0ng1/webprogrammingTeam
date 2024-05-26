@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<audio id="myAudio" src="BGM1.wav" loop></audio>
+	<audio id="myAudio" src="sound/BGM1.wav" loop></audio>
 
 	<div id="mainmenu">
 		<div id="mainMenuButtonsDiv" class="screen">
@@ -167,6 +167,7 @@
         <div id="gameOverScore" class="gameScore"></div>
         <div style="display: flex;">
             <button id="backToMenuButtonFromGameOver" class="menuButtons backToMenuButton2" style="display:none;">Back to Menu</button>
+            <button id="nextstage" class="menuButtons winbutton" style="display:none;">Next Stage</button>
         </div>
     </div>
 
@@ -219,6 +220,12 @@
 					<img src="pixel_arrow_left.png" class="smallArrow hidden">
 				</div>
 			</div>
+			<br>
+			<div>
+				<h3>Effect Sound</h3>
+				<button class="effectOffButton effectOnOffButton active" id="effectOffButton" value="off">off</button>
+				<button class="effectOnButton effectOnOffButton" id="effectOnButton" value="on">on</button>
+			</div>
 		</div>
 
 		<div id="setting3" class="backButtonDiv">
@@ -229,9 +236,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
 
 	<div id="scoresScreen" class="screen centered" style="display: none">
 		<div class="transparentBackground centered">
@@ -271,34 +275,6 @@
 			</div>
 		</div>
 	</div>
-
-
-<!-- <div id="gameOverScreen" class="screen centered" style="display: none;"> 
-		<h1></h1>
-		<div id="gameOverScore" class="gameScore"></div>
-		<div style="display: flex;">
-				<img src="pixel_arrow_right.png" class="arrow hidden">
-				<button id="backToMenuButtonFromGameOver" class="menuButtons backToMenuButton2" style="display:none;">Back to Menu</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
-		</div>
-	</div>
-
-
-	<div id="winFullScreen" class="isHidden">
-		<h1></h1>
-		
-		<div id="gameWinScreen" class="screen centered" style="display: none;">
-			<img id="evolution" src="raichu.png" width="300px">
-		</div>	
-
-		<div id="gameWinScore" class="gameScore centered"></div>
-		<div id="backBtn" style="display: flex;">
-				<img src="pixel_arrow_right.png" class="arrow hidden">
-				<button id="backToMenuButtonFromGameWin" class="menuButtons backToMenuButton2" style="display:none;">Back to Menu</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
-		</div>
-	</div> -->
-
 
 </body>
 </html>

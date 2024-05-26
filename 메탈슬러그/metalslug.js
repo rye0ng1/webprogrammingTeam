@@ -6,7 +6,7 @@ window.gameSettings = {
     gameMode: "1",
     character: "player1_big.png",
     backgroundImg: "mainbackground.png",
-    music: "BGM1.wav",
+    music: "sound/BGM1.wav",
     soundOnOff: "off"
 };
 
@@ -63,10 +63,11 @@ function mainMenu() {
             }
         };
     }
+    
 }
 
 //효과음 사운드
-var effectaudio = new Audio('enemydie2.wav');
+var effectaudio = new Audio('sound/enemydie2.wav');
 document.addEventListener('DOMContentLoaded', function() {
 
     effectaudio.volume = 0;
@@ -118,17 +119,17 @@ function preGameSettings() {
     // selectedWeaponImg.src = window.gameSettings.weapon;
 }
 
-
-let gameFinish = false;
-let gameClear = false;
-var score = 0;
 function game(){
+    let gameFinish = false;
+    let gameClear = false;
+
     var gamescreen = document.getElementById('gameScreen');
     gamescreen.style.display = "block";
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
-    var time = 5;
+    var score = 0;
+    var time = 60;
 
     const playerWidth = 100;
     const playerHeight = 100;
@@ -138,7 +139,7 @@ function game(){
     const bulletSpeed = 15;
     let bullets = [];
     let lastBulletTime = 0;
-    const bulletCooldown = 100; // 총알 나가는 시간 (ms)
+    const bulletCooldown = 200; // 총알 나가는 시간 (ms)
     let lastMousePosition = { x: canvas.width / 2, y: canvas.height / 2 };
 
     const brickRow = 3;
@@ -269,8 +270,8 @@ function game(){
                             score += 1;
                             const sc = document.getElementById("score");
                             sc.innerHTML = score;
-                            
                         }
+
                         if (brickcnt == 0) {
                                 gameClear = true;
                                 gameOver();
@@ -346,11 +347,14 @@ function game(){
     }
 
     //게임 종료 함수
-    function gameOver() {
+    function gameOver() { 
         gameFinish = true;
         var gameboard = document.getElementById("gameScreen");
         gameboard.style.display = "none";
         hideShowScreen(null,"gameOverScreen");
+        var gameover = document.getElementById("gameOverScreen");
+        var h1 = gameover.getElementsByTagName('h1')[0];
+        h1.innerHTML = '';
         showGameOver();
     }
 
@@ -376,7 +380,7 @@ function game(){
                 h1.innerHTML += letter.shift(); 
             }
         }
-        setTimeout(typing, 1500);       
+        setTimeout(typing, 1500);    
     }
 
     function showGameOverBtn() {
@@ -388,24 +392,22 @@ function game(){
         sco.classList.add("appear");
         btn.style.display = "block";
         btn.classList.add("appear");
+
+        btn.onclick = function () {
+            hideShowScreen("gameOverScreen", "mainmenu");
+        }
     }
 
     function showGameWinBtn() {
         var btn = document.getElementById("nextstage");
         btn.style.display = "block";
         btn.classList.add("appear");
-    }
 
-    var backToMenuButton2 = document.getElementById("backToMenuButtonFromGameOver");
-    backToMenuButton2.onclick = function() {     
-        document.location.reload();
-    };
-    /*
-    var winbutton = document.getElementById("nextstage");
-    backToMenuButton2.onclick = function() {     
-        //다음 스테이지로 넘어가기
-    };
-    */
+        btn.onclick = function () {
+            hideShowScreen("gameOverScreen", null);
+            gameMedium();
+        }
+    }
 
     // insertcoin 깜빡거리게 하는 함수
     function blinkInsertCoin() {
@@ -444,12 +446,32 @@ function start() {
     score = 0;
     if (window.gameSettings.gameRules ==="off" && window.gameSettings.gameStory ==="off") {
         hideShowScreen("preGameSettingsScreen",null);
-        game();
+        switch (window.gameSettings.gameMode) {
+            case "1":
+                game();
+                break;
+            case "2":
+                gameMedium();
+                break;
+            case "3":
+                gameHard();
+                break;
+        }
     }
     else if (window.gameSettings.gameRules ==="on" && window.gameSettings.gameStory ==="off") {
         if (grandgrandParentDiv.id === "gameRulesScreen") {
             hideShowScreen("gameRulesScreen",null);
-            game();
+            switch (window.gameSettings.gameMode) {
+                case "1":
+                    game();
+                    break;
+                case "2":
+                    gameMedium();
+                    break;
+                case "3":
+                    gameHard();
+                    break;
+            }
         } else {
             hideShowScreen("preGameSettingsScreen","gameRulesScreen");
         }
@@ -457,7 +479,17 @@ function start() {
     else if (window.gameSettings.gameRules ==="off" && window.gameSettings.gameStory ==="on") {
         if (grandgrandParentDiv.id === "gameStoryScreen") {
             hideShowScreen("gameStoryScreen",null);
-            game();
+            switch (window.gameSettings.gameMode) {
+                case "1":
+                    game();
+                    break;
+                case "2":
+                    gameMedium();
+                    break;
+                case "3":
+                    gameHard();
+                    break;
+            }
         } else {
             hideShowScreen("preGameSettingsScreen","gameStoryScreen");
         }
@@ -467,7 +499,17 @@ function start() {
             hideShowScreen("gameRulesScreen","gameStoryScreen");
         } else if (grandgrandParentDiv.id === "gameStoryScreen") {
             hideShowScreen("gameStoryScreen",null);
-            game();
+            switch (window.gameSettings.gameMode) {
+                case "1":
+                    game();
+                    break;
+                case "2":
+                    gameMedium();
+                    break;
+                case "3":
+                    gameHard();
+                    break;
+            }
         } else {
             hideShowScreen("preGameSettingsScreen","gameRulesScreen");
         }
@@ -570,7 +612,7 @@ function showSettings() {
     var myAudio = document.getElementById("myAudio");
     for (var i = 0; i < bgm.length; i++) {
         bgm[i].onclick = function(e) {
-            window.gameSettings.music = this.name+".wav";
+            window.gameSettings.music = "sound/"+this.name+".wav";
             myAudio.src = window.gameSettings.music;
             musicOnOff();
         };
