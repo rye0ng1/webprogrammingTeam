@@ -7,22 +7,32 @@ function gameHard(){
     const ctx = canvas.getContext('2d');
 
     var score = 0;
-    var time = 90;
+    var time = 150;
 
     const playerWidth = 100;
     const playerHeight = 100;
     let playerX = (canvas.width - playerWidth) / 2;
     let playerY =  canvas.height - playerHeight;
-    let playerLives = 5;
     let isInvincible = false;
 
+    var playerLives;
+    var bulletCooldown;
+    const selectedCharacterSetting = document.querySelector('.selectedCharacter');
+    const nameValue = selectedCharacterSetting.getAttribute('name');
+    if(nameValue == "playersetting1") {     //캐릭터 설정에 따른 목숨 및 총알 속도 조절
+        playerLives = 5; 
+        bulletCooldown = 200; // 총알 나가는 시간 (ms)
+    }
+    else {
+        playerLives = 3;
+        bulletCooldown = 120;
+    }
 
     const FItembulletRadius = 10;
     let bulletRadius = 5;
     let bulletSpeed = 10; // 원래는 5
     let bullets = [];
     let lastBulletTime = 0;
-    let bulletCooldown = 200; // 총알 나가는 시간 (ms)
     let lastMousePosition = { x: canvas.width / 2, y: canvas.height / 2 };
 
     const brickRow = 4;
@@ -115,6 +125,7 @@ function gameHard(){
 
         if (playerLives <= 0) {
             gameOver();
+            return;
         }
     }
 
@@ -232,6 +243,7 @@ function gameHard(){
             if(enemy_level == enemy_maxlevel){ //모든 레벨의 적들을 죽이면 클리어 페이지 이동
                 gameClear = true;
                 gameOver();
+                return;
             }
             else{ // 다음 단계 설정
                 bulletRadius *= 1.25;
@@ -673,10 +685,11 @@ function gameHard(){
 
     function drawBullets() {
         bullets.forEach((bullet, index) => {
+            var bulletImage = new Image();
+            bulletImage.src = "bullet.png";
+            bulletImage.style.width = "100px"
             ctx.beginPath();
-            ctx.arc(bullet.x, bullet.y, bullet.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'orange';
-            ctx.fill();
+            ctx.drawImage(bulletImage, bullet.x - bulletRadius, bullet.y - bulletRadius, bulletRadius * 4, bulletRadius * 4);
             ctx.closePath();
             bullet.x += bullet.dx;
             bullet.y += bullet.dy;
@@ -826,11 +839,16 @@ function gameHard(){
 
     // 시간 계산 함수
     function updateTimer() {
-        if(!gameFinish){time--;}
+        if(!gameFinish){
+            time--;
+        }
+        else return;
+        
         document.getElementById('timer').textContent = `${time}`;
         if (time === 0) {
             clearInterval(intervalId);
             gameOver();
+            return;
         }
     }
 
@@ -853,6 +871,8 @@ function gameHard(){
         gameboard.style.display = "none";
         hideShowScreen(null,"gameOverScreen");
         showGameOver();
+        updateScores(score);
+        // callback();
     }
 
     //게임 종료 화면
@@ -865,7 +885,6 @@ function gameHard(){
             var letter;
             if(!gameClear){
                 letter = "GAME OVER . . .".split("");
-                score = 0;
                 setTimeout(showGameOverBtn, 4000);
             }
             else{

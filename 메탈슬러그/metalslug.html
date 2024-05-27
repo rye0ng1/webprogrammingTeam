@@ -6,6 +6,7 @@
 	<script type="text/javascript" src = "metalslug_hard.js"></script>
 	<link type="text/css" rel = "stylesheet" href = "metalslug.css">
 	<link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -21,10 +22,12 @@
 				<button id="settingsButton" class="menuButtons">Settings</button>
 			</div>
 
-			<img id="titleImg" src="Title.gif" width="400px">
+			<div class="centered">
+				<img id="titleImg" src="Title.gif" width="400px">
 
-			<div class="menuButtonDiv" id="startBtn">
-				<button id="startButton" class="menuButtons">Start</button>
+				<div class="menuButtonDiv" id="startBtn">
+					<button id="startButton" class="menuButtons">Start</button>
+				</div>
 			</div>
 
 			<div class="menuButtonDiv" id="creditsBtn">
@@ -38,29 +41,23 @@
 			<div id="gameMode" class="centered">
 				<h2>Game Mode</h2>
 				<div class="gameModeDiv">
-					<img src="pixel_arrow_right.png" class="smallArrow hidden">
-					<button id="easyModeButton" class="gameModeButton active" value="1">Easy</button>
-					<img src="pixel_arrow_left.png" class="smallArrow hidden">
+					<button id="easyModeButton" class="gameModeButton active" value="1">Basic</button>
 				</div>
 				<div class="gameModeDiv">
-					<img src="pixel_arrow_right.png" class="smallArrow hidden">
 					<button id="mediumModeButton" class="gameModeButton" value="2">Medium</button>
-					<img src="pixel_arrow_left.png" class="smallArrow hidden">
 				</div>
 				<div class="gameModeDiv">
-					<img src="pixel_arrow_right.png" class="smallArrow hidden">
 					<button id="hardModeButton" class="gameModeButton" value="3">Hard</button>
-					<img src="pixel_arrow_left.png" class="smallArrow hidden">
 				</div>
 			</div>
-			<div class="centered">
+<!-- 			<div class="centered">
 				<h3>Selected Character</h3>
 				<div>
 					<div id="selectedCharacterDiv">
 						<img id="selectedCharacterImg" class="CharacterPreGame">
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="preSettings">
 				<h3 class="settingName">StoryMode</h3>
 				<button id="gameStoryOffButton" class="gameStoryButton active" value="off">off</button>
@@ -73,15 +70,11 @@
 			</div>
 
 			<div class="gameStartButtonDiv">
-				<img src="pixel_arrow_right.png" class="arrow hidden">
 				<button class="gameStartButton">Game Start</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
 			</div>
 			
 			<div class="backButtonDiv">
-				<img src="pixel_arrow_right.png" class="arrow hidden">
 				<button class="backButton">Back</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
 			</div>
 		</div>
 	</div>
@@ -90,24 +83,24 @@
 	<div id="gameRulesScreen" class="screen centered" style="display: none">
 		<div class="transparentBackground centered">
 			<h2>Game Rules</h2>
-			<div id="ControlDescription">
-				<p><br>캐릭 이동: 좌우 화살표</p>
-				<p>공 던지기: ?</p>
-				<p>스킬 사용: s</p>
-				<p>일시 정지: Esc<br><br></p>
+			<div id="ControlDescription" class="centered">
+				<p><span style="color: yellow">캐릭터 이동</span>: 상하좌우 화살표<br>
+				(상하 화살표는 Hard 모드에서만 적용됨)</p>
+				<p><span style="color: yellow">게임 방법</span>: 주어진 시간 내에 적들을 모두 없애라!<br>
+				목숨이 다 닳으면 자동으로 게임 오버!</p>
 			</div>
+			<h2>Items</h2>
 			<div id="SkillDescription">
-				<span id="SS"><h3>Item<br><br></h3>
+				<div>
+					<p><img src="item/chicken.gif" width="60px"> : 점수 10점 추가 <br>
+					<img src="item/F_item.gif" width="100px"> : Friend 동료<img src="item/metal-slug-soldier.gif" heigth="50px"> 등장</p>
+				</div>
 			</div>
 			<div class="gameStartButtonDiv">
-				<img src="pixel_arrow_right.png" class="arrow hidden">
 				<button class="gameStartButton">Game Start</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
 			</div>
 			<div class="backButtonDiv">
-				<img src="pixel_arrow_right.png" class="arrow hidden">
 				<button class="backButton">Back</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
 			</div>
 		</div>
 	</div>
@@ -116,16 +109,15 @@
 	<div id="gameStoryScreen" class="screen centered" style="display: none">
 		<div class="transparentBackground centered">
 			<h2>Game Story</h2>
-			<p id="intro">게임 스토리 넣기..</p>
+			<p id="intro">
+				2024년 5월 9일.. <br>
+				컴퓨터공학부 예비군 훈련을 받으러 갔는데 갑자기 어디선가 반란군과 외계인이 쳐들어오게 되어 몰려드는 적들과의 전쟁이 시작되는데.. 갈고닦은 사격 실력으로 적들을 처치하고 그들이 가지고 있는 물건들을 통해 생존하고 승리해라!
+			</p>
 			<div class="gameStartButtonDiv">
-				<img src="pixel_arrow_right.png" class="arrow hidden">
 				<button class="gameStartButton">Game Start</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
 			</div>
 			<div class="backButtonDiv">
-				<img src="pixel_arrow_right.png" class="arrow hidden">
 				<button class="backButton">Back</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
 			</div>
 		</div>
 	</div>
@@ -135,14 +127,10 @@
 	<div id="pauseScreenMenu" class="isHidden centered">
 		<div class="backButtonDiv centered">
 			<div style="display: flex;">
-				<img src="pixel_arrow_right.png" class="arrow hidden">
 				<button id="continueButton" class="continueButton menuButtons">Continue</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
 			</div>
 			<div style="display: flex;">
-				<img src="pixel_arrow_right.png" class="arrow hidden">
 				<button id="backToMenuButton" class="menuButtons">Back to Menu</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
 			</div>
 		</div>
 	</div>
@@ -153,7 +141,7 @@
             <div id="gamenav">
                 <div id="score" class="gradient-text-two">0</div>
                 <div id="life"></div>
-                <div id="timer" class="gradient-text">120</div>
+                <div id="timer" class="gradient-text"></div>
                 <p id="coin" class="gradient-text-two">INSERT COIN</p>
             </div>
             <canvas id="gameCanvas" width="1200" height="800"></canvas>
@@ -175,34 +163,23 @@
 		<h1>Settings</h1>
 		<div id="setting1">
 			<div id="characterSelectionDiv">
-				<h3>Character</h3>
-				<div id="player1Div">
-					<img name="player1_big" id="player1_big" class="characterThumbnail selectedCharacter" src="player1_big.png">
+				<h3>Character Setting</h3>
+				<div id="player1Div" name="playersetting1" class="characterThumbnail selectedCharacter">
 					Hearts <br>
 					<img src="Heart.png" width="35px">
 					<img src="Heart.png" width="35px">
+					<img src="Heart.png" width="35px">
+					<img src="Heart.png" width="35px">
+					<img src="Heart.png" width="35px"><br>
+					Power <br>20
+				</div>
+				<div id="player2Div" name="playersetting2" class="characterThumbnail">
+					Hearts <br>
 					<img src="Heart.png" width="35px">
 					<img src="Heart.png" width="35px">
 					<img src="Heart.png" width="35px"><br>
 					Power <br>30
 				</div>
-				<div id="player2Div">
-					<img name="player2_big" id="player2_big" class="characterThumbnail" src="player2_big.png">
-					Hearts <br>
-					<img src="Heart.png" width="35px">
-					<img src="Heart.png" width="35px">
-					<img src="Heart.png" width="35px"><br>
-					Power <br>50
-				</div>
-			</div>
-		</div>
-
-		<div id="setting2">
-			<div id="backgroundSelectionDiv">
-				<h3>Background</h3>
-				<img name="background1" src="background1.png" class="thumbnail">
-				<img name="background2" src="background2.png" class="thumbnail">
-				<img name="background3" src="background3.png" class="thumbnail">
 			</div>
 
 			<div class="musicDiv">
@@ -210,14 +187,10 @@
 				<button class="musicOffButton musicOnOffButton active" value="off">off</button>
 				<button class=" musicOnButton musicOnOffButton" value="on">on</button>
 				<div class="bgmButtonDiv">
-					<img src="pixel_arrow_right.png" class="smallArrow hidden">
 					<button name="BGM1" class="musicButton active">song 1</button>
-					<img src="pixel_arrow_left.png" class="smallArrow hidden">
 				</div>
 				<div class="bgmButtonDiv">
-					<img src="pixel_arrow_right.png" class="smallArrow hidden">
 					<button name="BGM2" class="musicButton">song 2</button>
-					<img src="pixel_arrow_left.png" class="smallArrow hidden">
 				</div>
 			</div>
 			<br>
@@ -228,11 +201,18 @@
 			</div>
 		</div>
 
+		<div id="setting2">
+			<div id="backgroundSelectionDiv">
+				<h3>Background</h3>
+				<img name="background1" src="background1.png" class="thumbnail">
+				<img name="background2" src="background2.png" class="thumbnail">
+				<img name="background3" src="background3.png" class="thumbnail">
+			</div>
+		</div>
+
 		<div id="setting3" class="backButtonDiv">
 			<div>
-				<img src="pixel_arrow_right.png" class="arrow hidden">
 				<button class="backButton">Back</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
 			</div>
 		</div>
 	</div>
@@ -244,14 +224,10 @@
 			<table id="scoreTable">
 			</table>
 			<div class="clearScoresDiv">
-				<img src="pixel_arrow_right.png" class="arrow hidden">
 				<button class="clearScoresButton">Clear Scores</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
 			</div>
 			<div class="backButtonDiv">
-				<img src="pixel_arrow_right.png" class="arrow hidden">
 				<button class="backButton">Back</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
 			</div>
 		</div>
 	</div>
@@ -262,16 +238,14 @@
 			<h1>Made by</h1>
 			<div>
 				<p class="credits">
-					김찬형 202<br>
-					오영웅 202<br>
-					이진환 202<br>
-					황혜령 202114236<br>
+					Chan-hyung Kim   202110589<br>
+					Yeong-woong O   202111326<br>
+					Jin-hwan Lee   202214212<br>
+					Hye-ryeong Hwang   202114236<br>
 				</p>
 			</div>
 			<div class="backButtonDiv">
-				<img src="pixel_arrow_right.png" class="arrow hidden">
 				<button class="backButton">Back</button>
-				<img src="pixel_arrow_left.png" class="arrow hidden">
 			</div>
 		</div>
 	</div>

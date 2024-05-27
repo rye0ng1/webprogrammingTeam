@@ -4,7 +4,7 @@ window.gameSettings = {
     gameRules: "off",
     gameStory: "off",
     gameMode: "1",
-    character: "player1_big.png",
+    // character: "player1_big.png",
     backgroundImg: "mainbackground.png",
     music: "sound/BGM1.wav",
     soundOnOff: "off"
@@ -113,10 +113,10 @@ function preGameSettings() {
         gameStartButton[i].onclick = start;
     }
 
-    var selectedCharacterImg = document.getElementById("selectedCharacterImg");
-    // var selectedWeaponImg = document.getElementById("selectedWeaponImg");
-    selectedCharacterImg.src = window.gameSettings.character;
-    // selectedWeaponImg.src = window.gameSettings.weapon;
+    // var selectedCharacterImg = document.getElementById("selectedCharacterImg");
+    // // var selectedWeaponImg = document.getElementById("selectedWeaponImg");
+    // selectedCharacterImg.src = window.gameSettings.character;
+    // // selectedWeaponImg.src = window.gameSettings.weapon;
 }
 
 function game(){
@@ -129,21 +129,34 @@ function game(){
     const ctx = canvas.getContext('2d');
 
     var score = 0;
-    var time = 60;
+    var time = 10;
 
     const playerWidth = 100;
     const playerHeight = 100;
     let playerX = (canvas.width - playerWidth) / 2;
 
     const bulletRadius = 5;
-    const bulletSpeed = 15;
+    const bulletSpeed = 8;
     let bullets = [];
     let lastBulletTime = 0;
-    const bulletCooldown = 200; // 총알 나가는 시간 (ms)
+
+    var playerLives;
+    var bulletCooldown;
+    const selectedCharacterSetting = document.querySelector('.selectedCharacter');
+    const nameValue = selectedCharacterSetting.getAttribute('name');
+    if(nameValue == "playersetting1") {     //캐릭터 설정에 따른 목숨 및 총알 속도 조절
+        playerLives = 5; 
+        bulletCooldown = 200; // 총알 나가는 시간 (ms)
+    }
+    else {
+        playerLives = 3;
+        bulletCooldown = 120;
+    }
+
     let lastMousePosition = { x: canvas.width / 2, y: canvas.height / 2 };
 
     const brickRow = 3;
-    const brickColumn = 8;
+    const brickColumn = 1;
     const brickWidth = 100;
     const brickHeight = 70;
     const brickPadding = 10;
@@ -194,6 +207,23 @@ function game(){
         };
     }
 
+    function updateplayerLives() {
+        const lifeContainer = document.getElementById('life');
+        lifeContainer.innerHTML = ''; // 기존 하트 이미지를 모두 제거
+
+        for (let i = 0; i < playerLives; i++) {
+            const heart = document.createElement('img');
+            heart.src = 'Heart.png'; // 하트 이미지 경로 설정
+            heart.width = 50;
+            lifeContainer.appendChild(heart);
+        }
+
+        if (playerLives <= 0) {
+            gameOver();
+            return;
+        }
+    }
+
     function shootBullet() {
         const now = Date.now();
         if (now - lastBulletTime > bulletCooldown) {
@@ -236,10 +266,11 @@ function game(){
 
     function drawBullets() {
         bullets.forEach((bullet, index) => {
+            var bulletImage = new Image();
+            bulletImage.src = "bullet.png";
+            bulletImage.style.width = "100px"
             ctx.beginPath();
-            ctx.arc(bullet.x, bullet.y, bulletRadius, 0, Math.PI * 2);
-            ctx.fillStyle = 'orange';
-            ctx.fill();
+            ctx.drawImage(bulletImage, bullet.x - bulletRadius, bullet.y - bulletRadius, bulletRadius * 4, bulletRadius * 4);
             ctx.closePath();
             bullet.x += bullet.dx;
             bullet.y += bullet.dy;
@@ -275,6 +306,7 @@ function game(){
                         if (brickcnt == 0) {
                                 gameClear = true;
                                 gameOver();
+                                return;
                         }
                     }
                 }
@@ -326,11 +358,16 @@ function game(){
 
     // 시간 계산 함수
     function updateTimer() {
-        if(!gameFinish){time--;}
+        if(!gameFinish){
+            time--;
+        }
+        else return;
+        
         document.getElementById('timer').textContent = `${time}`;
         if (time === 0) {
             clearInterval(intervalId);
             gameOver();
+            return;
         }
     }
 
@@ -356,6 +393,7 @@ function game(){
         var h1 = gameover.getElementsByTagName('h1')[0];
         h1.innerHTML = '';
         showGameOver();
+        updateScores(score);
     }
 
     //게임 종료 화면
@@ -367,7 +405,6 @@ function game(){
             var letter;
             if(!gameClear){
                 letter = "GAME OVER . . .".split("");
-                score = 0;
                 setTimeout(showGameOverBtn, 4000);
             }
             else{
@@ -399,9 +436,16 @@ function game(){
     }
 
     function showGameWinBtn() {
+        var sco = document.getElementById("gameOverScore");
         var btn = document.getElementById("nextstage");
+
+        sco.style.display = "block";
+        sco.innerHTML = "SCORE : " + score;
+        sco.classList.add("appear");
         btn.style.display = "block";
+        btn.classList.remove("hidden");
         btn.classList.add("appear");
+        updateScores(score);
 
         btn.onclick = function () {
             hideShowScreen("gameOverScreen", null);
@@ -420,11 +464,12 @@ function game(){
     blinkInsertCoin();
 
     function update() {
+        if(gameFinish) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawBricks();
         drawCharacter();
         drawBullets();
-
+        updateplayerLives();
         shootBullet();
 
         requestAnimationFrame(update);
@@ -436,6 +481,26 @@ function game(){
     });
 }
 
+function resetGameState() {
+    gameFinish = false;
+    gameClear = false;
+    score = 0;
+}
+
+function resetGameOverScreen() {
+    var gameover = document.getElementById("gameOverScreen");
+    var h1 = gameover.getElementsByTagName('h1')[0];
+    var sco = document.getElementById("gameOverScore");
+    var btn = document.getElementById("backToMenuButtonFromGameOver");
+    // var nextStageBtn = document.getElementById("nextstage");
+
+    h1.innerHTML = '';
+    sco.style.display = "none";
+    sco.innerHTML = '';
+    btn.style.display = "none";
+    // nextStageBtn.style.display = "none";
+}
+
 
 function start() {
     var parentDiv = this.parentNode;
@@ -443,7 +508,10 @@ function start() {
     var grandgrandParentDiv = grandParentDiv.parentNode;
     var gameRulesScreen = document.getElementById("gameRulesScreen");
     var gameStoryScreen = document.getElementById("gameStoryScreen");
-    score = 0;
+
+    resetGameState();
+    resetGameOverScreen();
+
     if (window.gameSettings.gameRules ==="off" && window.gameSettings.gameStory ==="off") {
         hideShowScreen("preGameSettingsScreen",null);
         switch (window.gameSettings.gameMode) {
@@ -521,7 +589,7 @@ function start() {
 function playAudio() {
     window.gameSettings.soundOnOff = "on";
     let audio = document.getElementById("myAudio");
-    audio.volume = 0.1;
+    audio.volume = 0.3;
     audio.play();
 }
 
@@ -557,8 +625,6 @@ function addButtonFunc(className, settingName, showArrow = false) {
                 if (nextArrow) {
                     nextArrow.classList.remove("hidden");
                 }
-                // prevArrow.classList.remove("hidden");
-                // nextArrow.classList.remove("hidden");
               });
               button.addEventListener("mouseout", () => {
                 const prevArrow = button.previousElementSibling;
@@ -640,7 +706,7 @@ function clearScores() {
     var scoreTable = document.getElementById("scoreTable");
     scoreTable.innerHTML="";
     var tr = crEl("tr", scoreTable, null);
-    crEl("th", tr, "Game #");
+    crEl("th", tr, "Game");
     crEl("th", tr, "Score");
     var bestScoreValue = document.getElementById("bestScoreValue");
     bestScoreValue.innerHTML = 0;
@@ -679,7 +745,7 @@ function showScores() {
     var scoreTable = document.getElementById("scoreTable");
     scoreTable.innerHTML="";
     var tr = crEl("tr", scoreTable, null);
-    crEl("th", tr, "Game #");
+    crEl("th", tr, "Game");
     crEl("th", tr, "Score");
     let gameNumber = parseInt(localStorage.getItem('gameNumber'));
     if (gameNumber>10) {

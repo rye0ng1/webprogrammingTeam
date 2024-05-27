@@ -1,3 +1,34 @@
+//효과음 사운드
+var effectaudio = new Audio('sound/enemydie4.wav');
+document.addEventListener('DOMContentLoaded', function() {
+
+    effectaudio.volume = 0;
+    toggleButtons('off');
+
+    document.getElementById('effectOffButton').addEventListener('click', function() {
+        effectaudio.volume = 0;
+        toggleButtons('off');
+    });
+
+    document.getElementById('effectOnButton').addEventListener('click', function() {
+        effectaudio.volume = 0.3;
+        toggleButtons('on');
+    });
+
+    function toggleButtons(state) {
+        var offButton = document.getElementById('effectOffButton');
+        var onButton = document.getElementById('effectOnButton');
+
+        if (state === 'off') {
+            offButton.classList.add('active');
+            onButton.classList.remove('active');
+        } else {
+            offButton.classList.remove('active');
+            onButton.classList.add('active');
+        }
+    }
+});
+
 function gameMedium(){
     var gamescreen = document.getElementById('gameScreen');
     gamescreen.style.display = "block";
@@ -7,12 +38,25 @@ function gameMedium(){
     const ctx = canvas.getContext('2d');
 
     var score = 0;
-    var time = 90;
+    var time = 150;
 
     const playerWidth = 100;
     const playerHeight = 100;
     let playerX = (canvas.width - playerWidth) / 2;
-    let playerLives = 5;
+
+    var playerLives;
+    var bulletCooldown;
+    const selectedCharacterSetting = document.querySelector('.selectedCharacter');
+    const nameValue = selectedCharacterSetting.getAttribute('name');
+    if(nameValue == "playersetting1") {     //캐릭터 설정에 따른 목숨 및 총알 속도 조절
+        playerLives = 5; 
+        bulletCooldown = 200; // 총알 나가는 시간 (ms)
+    }
+    else {
+        playerLives = 3;
+        bulletCooldown = 120;
+    }
+
     let isInvincible = false;
 
     const FItembulletRadius = 10;
@@ -20,7 +64,6 @@ function gameMedium(){
     let bulletSpeed = 5;
     let bullets = [];
     let lastBulletTime = 0;
-    let bulletCooldown = 200; // 총알 나가는 시간 (ms)
     let lastMousePosition = { x: canvas.width / 2, y: canvas.height / 2 };
 
     const brickRow = 3;
@@ -98,6 +141,7 @@ function gameMedium(){
 
         if (playerLives <= 0) {
             gameOver();
+            return;
         }
     }
 
@@ -201,6 +245,7 @@ function gameMedium(){
             if(enemy_level == enemy_maxlevel){ //모든 레벨의 적들을 죽이면 클리어 페이지 이동
                 gameClear = true;
                 gameOver();
+                return;
             }
             else{ // 다음 단계 설정
                 bulletRadius *= 1.25;
@@ -504,10 +549,14 @@ function gameMedium(){
 
     function drawBullets() {
         bullets.forEach((bullet, index) => {
+            var bulletImage = new Image();
+            bulletImage.src = "bullet.png";
+            bulletImage.style.width = "100px"
             ctx.beginPath();
-            ctx.arc(bullet.x, bullet.y, bullet.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'orange';
-            ctx.fill();
+            // ctx.arc(bullet.x, bullet.y, bullet.radius, 0, Math.PI * 2);
+            ctx.drawImage(bulletImage, bullet.x - bulletRadius, bullet.y - bulletRadius, bulletRadius * 4, bulletRadius * 4);
+            // ctx.fillStyle = 'orange';
+            // ctx.fill();
             ctx.closePath();
             bullet.x += bullet.dx;
             bullet.y += bullet.dy;
@@ -536,11 +585,12 @@ function gameMedium(){
                         }
                         if (b.status == 0) {
                             brickcnt--;
+                            effectaudio.play();
                             var onButton = document.getElementById('effectOnButton');
-                            if (onButton.classList.contains('active')) {
-                                var effectaudio = new Audio('sound/enemydie4.wav');
-                                effectaudio.play();
-                            }
+                            // if (onButton.classList.contains('active')) {
+                            //     // var effectaudio = new Audio('sound/enemydie4.wav');
+                            //     effectaudio.play();
+                            // }
                             score += 1;
                             const sc = document.getElementById("score");
                             sc.innerHTML = score;
@@ -656,11 +706,16 @@ function gameMedium(){
 
     // 시간 계산 함수
     function updateTimer() {
-        if(!gameFinish){time--;}
+        if(!gameFinish){
+            time--;
+        }
+        else return;
+        
         document.getElementById('timer').textContent = `${time}`;
         if (time === 0) {
             clearInterval(intervalId);
             gameOver();
+            return;
         }
     }
 
@@ -673,7 +728,7 @@ function gameMedium(){
         if (showScreen) {
             var showScreen = document.getElementById(showScreen);
             showScreen.style.display = "block";
-        } 
+        }
     }
 
     //게임 종료 함수
@@ -683,6 +738,8 @@ function gameMedium(){
         gameboard.style.display = "none";
         hideShowScreen(null,"gameOverScreen");
         showGameOver();
+        updateScores(score);
+        // callback();
     }
 
     //게임 종료 화면
@@ -695,7 +752,7 @@ function gameMedium(){
             var letter;
             if(!gameClear){
                 letter = "GAME OVER . . .".split("");
-                score = 0;
+                // score = 0;
                 setTimeout(showGameOverBtn, 4000);
             }
             else{
@@ -735,6 +792,7 @@ function gameMedium(){
         sco.classList.add("appear");
         btn.style.display = "block";
         btn.classList.add("appear");
+        updateScores(score);
 
         btn.onclick = function () {
             hideShowScreen("gameOverScreen", null);
@@ -753,7 +811,7 @@ function gameMedium(){
     blinkInsertCoin();
 
     function update() {
-        if(!gameFinish){
+        if(!gameFinish) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             updateplayerLives();
             drawBricks();
