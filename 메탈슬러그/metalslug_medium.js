@@ -747,6 +747,7 @@ function gameMedium(){
         var gameover = document.getElementById("gameOverScreen");
         var h1 = gameover.getElementsByTagName('h1')[0];
         h1.innerHTML = '';
+        enemyContainer.innerHTML = '';
 
         const typing = async () => {
             var letter;
@@ -791,6 +792,7 @@ function gameMedium(){
         sco.innerHTML = "SCORE : " + score;
         sco.classList.add("appear");
         btn.style.display = "block";
+        btn.classList.remove("hidden");
         btn.classList.add("appear");
         updateScores(score);
 

@@ -125,7 +125,8 @@ h3 {
 /*배경*/
 .thumbnail {
 /*	display: inline-block;*/
-	height: 110px;
+	width: 60%;
+	/*height: 110px;*/
 	border: 2px solid transparent;
 	padding: 3px;
 	margin-bottom: 20px;

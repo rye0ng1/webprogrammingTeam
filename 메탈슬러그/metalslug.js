@@ -371,7 +371,7 @@ function game(){
         }
     }
 
-    //새로운 화면을 쓸 때 사용할 함수
+    //새로운 화면으로 전환할 쓸 때 사용할 함수
     function hideShowScreen(hideScreen, showScreen) {
         if (hideScreen) {
             var hideScreen = document.getElementById(hideScreen);
