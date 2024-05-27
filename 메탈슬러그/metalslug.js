@@ -383,6 +383,7 @@ function game(){
         } 
     }
 
+
     //게임 종료 함수
     function gameOver() { 
         gameFinish = true;
