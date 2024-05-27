@@ -129,7 +129,7 @@ function game(){
     const ctx = canvas.getContext('2d');
 
     var score = 0;
-    var time = 10;
+    var time = 50;
 
     const playerWidth = 100;
     const playerHeight = 100;
@@ -156,7 +156,7 @@ function game(){
     let lastMousePosition = { x: canvas.width / 2, y: canvas.height / 2 };
 
     const brickRow = 3;
-    const brickColumn = 1;
+    const brickColumn = 7;
     const brickWidth = 100;
     const brickHeight = 70;
     const brickPadding = 10;
