@@ -35,8 +35,8 @@ function gameHard(){
     let lastBulletTime = 0;
     let lastMousePosition = { x: canvas.width / 2, y: canvas.height / 2 };
 
-    const brickRow = 4;
-    const brickColumn = 5; // 원래 8
+    const brickRow = 5; // 원래 5
+    const brickColumn = 5; // 원래 5
     const brickWidth = 100;
     const brickHeight = 70;
     const brickPadding = 10;
@@ -55,7 +55,6 @@ function gameHard(){
     // enemy
     var enemy_created = 0; 
     var enemy_level = 0;  
-    var zombiecount = 0;
     const enemy_maxlevel = 2; // 0, 1, 2 단계 적 몇 단계까지인지 체크변수
     // enemy Bullet
     let enemyBullets = [];
@@ -189,14 +188,12 @@ function gameHard(){
                         var remainingHP = (bricks[c][r].status / maxHP) * hpBarWidth;
                     }
                     // 체력바 그리기
-                    //var hpBarWidth = brickWidth;
                     var hpBarHeight = brickHeight / 20;
 
                     enemy = document.getElementsByClassName(`enemy${c*brickRow+r}`)[0];
                     enemyLeft = parseFloat(enemy.style.left);
                     enemyTop = parseFloat(enemy.style.top);
 
-                    //var remainingHP = (bricks[c][r].status / maxHP) * hpBarWidth;
                     var hpBarY = parseFloat(bricks[c][r].y) - hpBarHeight - 2; // 브릭 위에 체력바를 그리기 위해 Y 좌표 조정
 
                     // 그라데이션 생성
@@ -274,10 +271,9 @@ function gameHard(){
             }
             enemy.style.left = `${newLeft}px`;
         }, 1000); // 2초마다 이동
-
     }
 
-    let bosssDirection = -1;
+    let bosssDirection = 1;
 
     function moveBosss(enemy) {
         setInterval(() => {
@@ -288,7 +284,6 @@ function gameHard(){
             }
             enemy.style.left = `${newLeft}px`;
         }, 400); // 2초마다 이동
-
     }
 
     let zombieDirection = 1;
@@ -330,7 +325,6 @@ function gameHard(){
                 enemy.style.width = `${brickWidth * 2}px`; // 보스 크기를 더 크게 설정
                 enemy.style.height = `${brickHeight * 2}px`;
                 enemyContainer.appendChild(enemy);
-                //enemy.dataset.isBoss = true; // 보스임을 표시
                 bossCreated = true; // 보스 생성 여부를 true로 설정
                 enemy.dataset.num = brick_num; // 몇 번째 적인지 저장하는 용도
                 const enemyspeed = Math.random() * enemyrandomspeed + enemybasespeed; // 적의 속도 랜덤 설정
@@ -348,7 +342,6 @@ function gameHard(){
                 enemy.style.width = `${brickWidth * 2}px`; // 보스 크기를 더 크게 설정
                 enemy.style.height = `${brickHeight * 2}px`;
                 enemyContainer.appendChild(enemy);
-                //enemy.dataset.isBoss = true; // 보스임을 표시
                 bosssCreated = true; // 보스 생성 여부를 true로 설정
                 enemy.dataset.num = brick_num; // 몇 번째 적인지 저장하는 용도
                 const enemyspeed = Math.random() * enemyrandomspeed + enemybasespeed; // 적의 속도 랜덤 설정
@@ -366,12 +359,9 @@ function gameHard(){
                 enemy.style.width = `${brickWidth}px`;
                 enemy.style.height = `${brickHeight}px`;
                 enemyContainer.appendChild(enemy);
-                //enemy.dataset.isBoss = true; // 보스임을 표시
-                //zombieCreated = true; // 보스 생성 여부를 true로 설정
                 enemy.dataset.num = brick_num; // 몇 번째 적인지 저장하는 용도
                 const enemyspeed = Math.random() * enemyrandomspeed + enemybasespeed; // 적의 속도 랜덤 설정
                 enemy.dataset.speed = enemyspeed; // 속도 데이터를 저장
-                zombiecount += 1;
                 zombieCreated = true; 
                 moveZombie(enemy);
                 }
@@ -386,7 +376,6 @@ function gameHard(){
                 enemy.style.width = `${brickWidth}px`;
                 enemy.style.height = `${brickHeight}px`;
                 enemyContainer.appendChild(enemy);
-                //enemy.dataset.isBoss = False; // 보스임을 표시
                 enemy.dataset.num = brick_num; // 몇 번째 적인지 저장하는 용도
                 const enemyspeed = Math.random() * enemyrandomspeed + enemybasespeed; // 적의 속도 랜덤 설정
                 enemy.dataset.speed = enemyspeed; // 속도 데이터를 저장
@@ -496,7 +485,7 @@ function gameHard(){
     function checkCollisionWithItems() { // 아이템 함수들의 main 역할 
         const playerRect = {
             left: playerX,
-            top: canvas.height - playerHeight,
+            top: playerY,
             right: playerX + playerWidth,
             bottom: canvas.height
         };
