@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<head>
+	<title>메탈슬러그 벽돌깨기</title>
+	<script type="text/javascript" src = "metalslug.js"></script>
+	<script type="text/javascript" src = "metalslug_medium.js"></script>
+	<script type="text/javascript" src = "metalslug_hard.js"></script>
+	<link type="text/css" rel = "stylesheet" href = "metalslug.css">
+	<link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<audio id="myAudio" src="sound/BGM1.wav" loop></audio>
+
+	<div id="mainmenu">
+		<div id="mainMenuButtonsDiv" class="screen">
+			<div class="menuButtonDiv" id="scoresBtn">
+				<button id="scoresButton" class="menuButtons">Scores</button>
+			</div>
+
+			<div class="menuButtonDiv" id="settingBtn">
+				<button id="settingsButton" class="menuButtons">Settings</button>
+			</div>
+
+			<div class="centered">
+				<img id="titleImg" src="Title.gif" width="400px">
+
+				<div class="menuButtonDiv" id="startBtn">
+					<button id="startButton" class="menuButtons">Start</button>
+				</div>
+			</div>
+
+			<div class="menuButtonDiv" id="creditsBtn">
+				<button id="creditsButton" class="menuButtons">Credits</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="preGameSettingsScreen" class="screen centered" style="display: none">
+		<div class="transparentBackground centered">
+			<div id="gameMode" class="centered">
+				<h2>Game Mode</h2>
+				<div class="gameModeDiv">
+					<button id="easyModeButton" class="gameModeButton active" value="1">Basic</button>
+				</div>
+				<div class="gameModeDiv">
+					<button id="mediumModeButton" class="gameModeButton" value="2">Medium</button>
+				</div>
+				<div class="gameModeDiv">
+					<button id="hardModeButton" class="gameModeButton" value="3">Hard</button>
+				</div>
+			</div>
+			<div class="preSettings">
+				<h3 class="settingName">StoryMode</h3>
+				<button id="gameStoryOffButton" class="gameStoryButton active" value="off">off</button>
+				<button id="gameStoryOnButton" class="gameStoryButton" value="on">on</button>
+			</div>
+			<div class="preSettings">
+				<h3 class="settingName">Game rules</h3>
+				<button id="gameRulesOffButton" class="gameRulesButton active" value="off">off</button>
+				<button id="gameRulesOnButton" class="gameRulesButton" value="on">on</button>
+			</div>
+
+			<div class="gameStartButtonDiv">
+				<button class="gameStartButton">Game Start</button>
+			</div>
+			
+			<div class="backButtonDiv">
+				<button class="backButton">Back</button>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="gameRulesScreen" class="screen centered" style="display: none">
+		<div class="transparentBackground centered">
+			<h2>Game Rules</h2>
+			<div id="ControlDescription" class="centered">
+				<p><span style="color: yellow">캐릭터 이동</span>: 상하좌우 화살표<br>
+				(상하 화살표는 Hard 모드에서만 적용됨)</p>
+				<p><span style="color: yellow">게임 방법</span>: 주어진 시간 내에 적들을 모두 없애라!<br>
+				목숨이 다 닳으면 자동으로 게임 오버!</p>
+			</div>
+			<h2>Items</h2>
+			<div id="SkillDescription">
+				<div>
+					<p><img src="item/chicken.gif" width="60px"> : 점수 10점 추가 <br>
+					<img src="item/F_item.gif" width="100px"> : Friend 동료<img src="item/metal-slug-soldier.gif" heigth="50px"> 등장</p>
+				</div>
+			</div>
+			<div class="gameStartButtonDiv">
+				<button class="gameStartButton">Game Start</button>
+			</div>
+			<div class="backButtonDiv">
+				<button class="backButton">Back</button>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="gameStoryScreen" class="screen centered" style="display: none">
+		<div class="transparentBackground centered">
+			<h2>Game Story</h2>
+			<p id="intro">
+				2024년 5월 9일.. <br>
+				컴퓨터공학부 예비군 훈련을 받으러 갔는데 갑자기 어디선가 반란군과 외계인이 쳐들어오게 되어 몰려드는 적들과의 전쟁이 시작되는데.. 갈고닦은 사격 실력으로 적들을 처치하고 그들이 가지고 있는 물건들을 통해 생존하고 승리해라!
+			</p>
+			<div class="gameStartButtonDiv">
+				<button class="gameStartButton">Game Start</button>
+			</div>
+			<div class="backButtonDiv">
+				<button class="backButton">Back</button>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div id="pauseScreenMenu" class="isHidden centered">
+		<div class="backButtonDiv centered">
+			<div style="display: flex;">
+				<button id="continueButton" class="continueButton menuButtons">Continue</button>
+			</div>
+			<div style="display: flex;">
+				<button id="backToMenuButton" class="menuButtons">Back to Menu</button>
+			</div>
+		</div>
+	</div>
+
+    <div id="gameScreen" style="display: none;">
+        <div id="pauseMenu"></div>
+        <div id="canvasWrapper">
+            <div id="gamenav">
+                <div id="score" class="gradient-text-two">0</div>
+                <div id="life"></div>
+                <div id="timer" class="gradient-text"></div>
+                <p id="coin" class="gradient-text-two">INSERT COIN</p>
+            </div>
+            <canvas id="gameCanvas" width="1200" height="800"></canvas>
+            <div id="enemyContainer"></div>
+            <div id="itemContainer"></div>
+        </div>
+    </div>
+
+    <div id="gameOverScreen" class="sscreen centered" style="display: none;"> 
+        <h1 class="gradient-text"></h1>
+        <div id="gameOverScore" class="gameScore"></div>
+        <div style="display: flex;">
+            <button id="backToMenuButtonFromGameOver" class="menuButtons backToMenuButton2" style="display:none;">Back to Menu</button>
+            <button id="nextstage" class="menuButtons winbutton" style="display:none;">Next Stage</button>
+        </div>
+    </div>
+
+	<div id="settingsScreen" class="screen centered" style="display: none">
+		<h1>Settings</h1>
+		<div id="setting1">
+			<div id="characterSelectionDiv">
+				<h3>Character Setting</h3>
+				<div id="player1Div" name="playersetting1" class="characterThumbnail selectedCharacter">
+					Hearts <br>
+					<img src="Heart.png" width="35px">
+					<img src="Heart.png" width="35px">
+					<img src="Heart.png" width="35px">
+					<img src="Heart.png" width="35px">
+					<img src="Heart.png" width="35px"><br>
+					Power <br>20
+				</div>
+				<div id="player2Div" name="playersetting2" class="characterThumbnail">
+					Hearts <br>
+					<img src="Heart.png" width="35px">
+					<img src="Heart.png" width="35px">
+					<img src="Heart.png" width="35px"><br>
+					Power <br>30
+				</div>
+			</div>
+
+			<div class="musicDiv">
+				<h3>Music</h3>
+				<button class="musicOffButton musicOnOffButton active" value="off">off</button>
+				<button class=" musicOnButton musicOnOffButton" value="on">on</button>
+				<div class="bgmButtonDiv">
+					<button name="BGM1" class="musicButton active">song 1</button>
+				</div>
+				<div class="bgmButtonDiv">
+					<button name="BGM2" class="musicButton">song 2</button>
+				</div>
+			</div>
+			<br>
+			<div>
+				<h3>Effect Sound</h3>
+				<button class="effectOffButton effectOnOffButton active" id="effectOffButton" value="off">off</button>
+				<button class="effectOnButton effectOnOffButton" id="effectOnButton" value="on">on</button>
+			</div>
+		</div>
+
+		<div id="setting2">
+			<div id="backgroundSelectionDiv">
+				<h3>Background</h3>
+				<img name="background1" src="background1.png" class="thumbnail">
+				<img name="background2" src="background2.png" class="thumbnail">
+				<img name="background3" src="background3.png" class="thumbnail">
+			</div>
+		</div>
+
+		<div id="setting3" class="backButtonDiv">
+			<div>
+				<button class="backButton">Back</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="scoresScreen" class="screen centered" style="display: none">
+		<div class="transparentBackground centered">
+			<h1>Scores</h1>
+			<h3>BEST SCORE: <span id="bestScoreValue"></span></h3>
+			<table id="scoreTable">
+			</table>
+			<div class="clearScoresDiv">
+				<button class="clearScoresButton">Clear Scores</button>
+			</div>
+			<div class="backButtonDiv">
+				<button class="backButton">Back</button>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="creditsScreen" class="screen centered" style="display: none">
+		<div class="transparentBackground centered">
+			<h1>Made by</h1>
+			<div>
+				<p class="credits">
+					Chan-hyung Kim   202110589<br>
+					Yeong-woong O   202111326<br>
+					Jin-hwan Lee   202214212<br>
+					Hye-ryeong Hwang   202114236<br>
+				</p>
+			</div>
+			<div class="backButtonDiv">
+				<button class="backButton">Back</button>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
